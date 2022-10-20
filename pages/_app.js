@@ -10,7 +10,7 @@ const MyApp = ({ Component, pageProps }) => (
       <Component {...pageProps} />
       <Footer />
     </div>
-    <Script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" crossOrigin="anonymous" />
+    <Script src="https://kit.fontawesome.com/9115147cf2.js" crossorigin="anonymous" />
   </ThemeProvider>
 );
 
