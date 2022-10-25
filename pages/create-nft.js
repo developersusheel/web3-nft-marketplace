@@ -52,7 +52,7 @@ const CreateNFT = () => {
                 </div>
 
                 <p className="font-poppins dark:text-white text-nft-black-1 font-semibold text-sm">Drag and Drop File</p>
-                <p className="font-poppins dark:text-white text-nft-black-1 font-semibold text-base">or Browse media on your device</p>
+                <p className="font-poppins dark:text-white text-nft-black-1 font-semibold text-sm">or Browse media on your device</p>
               </div>
             </div>
             {fileUrl && (
