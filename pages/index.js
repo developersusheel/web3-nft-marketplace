@@ -110,8 +110,8 @@ const Home = () => {
           parentStyles="justify-start mb-6 h-72 sm:60 p-12 xs:4 xs:h-44 rounded-3xl"
         />
 
-        <div className="mt-20">
-          <h1 className="font-poppins dark:text-white text-nft-black-1 text-2xl minlg:text-4xl font-semibold ml-4 xs:ml-0">Best Creators</h1>
+        <div className="mt-20 mb-10">
+          <h1 className="pt-10 font-poppins dark:text-white text-nft-black-1 text-2xl minlg:text-4xl font-semibold ml-4 xs:ml-0">Best Creators</h1>
           <div className="relative flex-1 max-w-full flex mt-3" ref={parentRef}>
             <div className="flex flex-row w-max overflow-x-scroll no-scrollbar select-none" ref={scrollRef}>
               {topCreators.map((creator, i) => (
@@ -139,7 +139,7 @@ const Home = () => {
                     src={images.left}
                     layout="fill"
                     objectFit="contain"
-                    className={theme === 'light' && 'filter invert'}
+                    className={theme === 'light' ? 'filter invert' : ''}
                   />
                 </div>
                 <div onClick={() => handleScroll('right')} className="absolute w-8 h-8 minlg:w-12 minlg:h-12 top-45 cursor-pointer right-0">
@@ -147,7 +147,7 @@ const Home = () => {
                     src={images.right}
                     layout="fill"
                     objectFit="contain"
-                    className={theme === 'light' && 'filter invert'}
+                    className={theme === 'light' ? 'filter invert' : ''}
                   />
                 </div>
               </>
@@ -157,8 +157,11 @@ const Home = () => {
         </div>
 
         <div className="mt-20">
-          <div className="flexBetween mx-4 xs:mx-0 minlg:mx-8 sm:flex-col sm:items-start">
+          <div className="flexBetween mx-4 xs:mx-0 minlg:mx-8 sm:flex-col sm:items-start mb-10">
             <h1 className="flex-1 font-poppins dark:text-white text-nft-black-1 text-2xl minlg:text-4xl font-semibold sm:mb-4">Popular NFTs</h1>
+          </div>
+
+          <div className="w-full px-4 mt-10">
             <div className="flex-2 sm:w-full flex flex-row sm:flex-col">
               <SearchBar
                 activeSelect={activeSelect}
