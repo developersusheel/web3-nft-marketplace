@@ -57,10 +57,10 @@ const NFTDetails = () => {
   const checkout = async () => {
     await buyNFT(nft);
     setPaymentModal(false);
-    successModal(true);
+    setSuccessModal(true);
   };
 
-  console.log(nft.image);
+  // console.log(nft.image);
 
   if (isLoading) return <Loader />;
 
@@ -112,10 +112,16 @@ const NFTDetails = () => {
             <p className="font-poppins dark:text-white text-nft-black-1 text-base font-normal border-gray">
               You cannot buy your own NFT
             </p>
+          ) : currentAccount === nft.owner.toLowerCase() ? (
+            <Button
+              btnName="List on Marketplace"
+              classStyles="mr-5 sm:mr-0 sm:mb-5 rounded-xl"
+              handleClick={() => router.push(`/resell-nft?tokenId=${nft.tokenId}&tokenURI=${nft.tokenURI}`)}
+            />
           ) : (
             <Button
               btnName={`Buy for ${nft.price} ${nftcurrency}`}
-              classStyles="mr-5 sm:mr-0 rounded-xl"
+              classStyles="mr-5 sm:mr-0 sm:mb-5 rounded-xl"
               handleClick={() => setPaymentModal(true)}
             />
           )}
@@ -144,31 +150,33 @@ const NFTDetails = () => {
         />
       )}
 
-      <Modal
-        header="Payment Successful"
-        body={(
-          <div className="flexCenter flex-col text-center" onClick={() => setPaymentModal(false)}>
-            <div className="relative w-52 h-52">
-              <Image
-                unoptimized
-                src="https://web3marketplace-testing.infura-ipfs.io/ipfs/QmRtrqDqex4tUaZpFodao62mLgwKH7icZspjHQum3Mhwgw"
-                objectFit="fill"
-                layout="fill"
+      {successModal && (
+        <Modal
+          header="Payment Successful"
+          body={(
+            <div className="flexCenter flex-col text-center" onClick={() => setPaymentModal(false)}>
+              <div className="relative w-52 h-52">
+                <Image
+                  unoptimized
+                  src="https://web3marketplace-testing.infura-ipfs.io/ipfs/QmRtrqDqex4tUaZpFodao62mLgwKH7icZspjHQum3Mhwgw"
+                  objectFit="fill"
+                  layout="fill"
+                />
+              </div>
+              <p className="font-poppins dark:text-white text-nft-black-1 font-normal text-sm minlg:text-xl mt-10">You successfully purchased <span className="font-semibold">{nft.name}</span> from <span className="font-semibold">{nft.seller}</span></p>
+            </div>
+)}
+          footer={(
+            <div className="flexCenter flex-col">
+              <Button
+                btnName="Check it out"
+                classStyles="sm:mb-5 sm:mr-0 rounded-xl"
+                handleClick={() => router.push('/my-nfts')}
               />
             </div>
-            <p className="font-poppins dark:text-white text-nft-black-1 font-normal text-sm minlg:text-xl mt-10">You successfully purchased <span className="font-semibold">{nft.name}</span> from <span className="font-semibold">{nft.seller}</span></p>
-          </div>
-)}
-        footer={(
-          <div className="flexCenter flex-col">
-            <Button
-              btnName="Check it out"
-              classStyles="sm:mb-5 sm:mr-0 rounded-xl"
-              handleClick={() => router.push('/my-nfts')}
-            />
-          </div>
         )}
-      />
+        />
+      )}
     </div>
   );
 };

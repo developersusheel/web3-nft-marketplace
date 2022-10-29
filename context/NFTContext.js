@@ -33,7 +33,7 @@ export const NFTProvider = ({ children }) => {
     if (!window.ethereum) return alert('Please install MetaMask');
 
     const accounts = await window.ethereum.request({ method: 'eth_accounts' });
-    console.log({ accounts });
+    // console.log({ accounts });
 
     if (accounts.length) {
       setCurrentAccount(accounts[0]);
@@ -91,7 +91,9 @@ export const NFTProvider = ({ children }) => {
     const contract = fetchContract(signer);
     const listingPrice = await contract.getListingPrice();
 
-    const transaction = await contract.createToken(url, price, { value: listingPrice.toString() });
+    const transaction = !isReselling
+      ? await contract.createToken(url, price, { value: listingPrice.toString() })
+      : await contract.resellToken(id, price, { value: listingPrice.toString() });
     await transaction.wait();
 
     // console.log(contract);
@@ -166,7 +168,7 @@ export const NFTProvider = ({ children }) => {
   };
 
   return (
-    <NFTContext.Provider value={{ nftcurrency, connectWallet, currentAccount, uploadToIPFS, createNFT, fetchNFTs, fetchMyNFTsOrListedNFTs, buyNFT }}>
+    <NFTContext.Provider value={{ nftcurrency, connectWallet, currentAccount, uploadToIPFS, createNFT, fetchNFTs, fetchMyNFTsOrListedNFTs, buyNFT, createSale }}>
       {children}
     </NFTContext.Provider>
   );
